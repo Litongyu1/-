@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>贪吃蛇小游戏</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.box {
+			width: 750px;
+			height: 500px;
+			margin: 0 auto;
+			border: 1px solid #ccc;
+		}
+		.row {
+			overflow: hidden;
+		}
+		.grid {
+			float: left;
+			width: 25px;
+			height: 25px;
+			border: 1px solid #ccc;
+			box-sizing: border-box;
+		}
+		.wrap {
+			width: 500px;
+			padding: 20px 30px;
+			margin: 0 auto;
+		}
+		.wrap input {
+			width: 100px;
+			height: 30px;
+			border-radius: 8px;
+			margin-left: 10px;
+			outline : none;
+			border: 1px solid skyblue;
+    		background: skyblue;
+    		cursor: pointer;
+		}
+		.wrap span {
+			display: inline-block;
+			margin-left: 50px;
+		}
+		.wrap span i {
+			font-style: normal;
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="wrap" id="wrap">
+      <!-- 开始按钮 -->
+      <input id="start" type="button" name="name" value="开始">
+		 <!-- 暂停按钮 -->
+      <input id="pause" type="button" name="name" value="暂停">
+      <!-- 刷新(重新开始游戏) -->
+      <input id="refresh" type="button" name="name" value="刷新">
+      <!-- 积分器 -->
+      <span>分数:<i id="score">0</i></span>
+	</div>
+	<script type="text/javascript" src="js/Game.js"></script>
+	<script type="text/javascript" src="js/Food.js"></script>
+	<script type="text/javascript" src="js/Map.js"></script>
+	<script type="text/javascript" src="js/Snake.js"></script>
+	<script type="text/javascript" src="js/Block.js"></script>
+	<script type="text/javascript">
+	// 初始化Food
+	var food = new Food(2, 6, "img/food.jpg");
+	// 初始化Map
+	var map = new Map(20, 30, 750, 500);
+	
+
+	// 蛇类所需要的图片
+	var snake_obj = {
+		head_pic: ["img/1.png", "img/2.png", "img/3.png", "img/4.png"],
+		body_pic: ["img/5.png"],
+		tail_pic: ["img/6.png", "img/7.png", "img/8.png", "img/9.png"]
+	}
+	// 初始化Snake
+	var snake = new Snake(snake_obj);
+	// 初始化Block
+	var block = new Block("img/block.png");
+
+	// 初始化游戏类
+	var g = new Game(map, food, snake, block);
+	//获取开始按钮
+	var start =document.getElementById("start");
+	//获取暂停按钮
+	var pause =document.getElementById("pause");
+	//获取刷新按钮
+	var refresh =document.getElementById("refresh");
+	//获取分数
+	var score = document.getElementById("score");
+	//定义一个分数分数计数器
+	var scoreCount = 0;
+	//添加开始事件
+	// g.start();
+	start.onclick = function(){
+		clearInterval(g.timer);
+		g.start();
+	}
+	//添加暂停事件
+	pause.onclick = function(){
+		clearInterval(g.timer);
+	}
+	//添加刷新事件
+	refresh.onclick = function(){
+		window.location.reload();
+	}
+	// //按下空格也是暂停
+	// document.onkeydown = function(e){
+	// 	//获取用户按下的键
+	// 	var code = e.keyCode;
+	// 	if(code === 32){
+	// 		clearInterval(g.timer);
+	// 		g.start(); 	 
+	// 	}
+	// }
+	</script>
+</body>
+</html>
